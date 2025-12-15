@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Underdesk Website</title>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #3a222d;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ===== TOPO ===== */
+        header {
+            background-color: #312135;
+            padding: 25px;
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            animation: flutuar 3s ease-in-out infinite;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .sgeek {
+            display: flex;
+            flex-direction: row;
+            box-shadow: 2px 2px 10px #ffffff4f;
+            border-radius: 15px;
+            background-color: #000;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 5px;
+            transition: 0.3s ease;
+            cursor: pointer;
+            color: #fff;
+
+            &:hover {
+                transform: scale(1.15);
+            }
+        }
+
+        .geektext {
+            margin: 5px;
+            padding: 10px;
+            font-weight: bold;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-size: 18px;
+        }
+
+        .r {
+            margin-top: 3px;
+            color: red;
+        }
+
+        header img {
+            width: 65px;
+            height: 65px;
+            margin-left: 5px;
+        }
+
+        .gamelogo img {
+            width: 90px;
+            height: 90px;
+        }
+
+        @keyframes flutuar {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CORPO ===== */
+        main {
+            flex: 1;
+            padding: 40px 5%;
+        }
+
+        /* Grid das imagens */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .img-box {
+            position: relative;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 55%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+            transition: transform 0.25s ease;
+        }
+
+        .img-title {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            opacity: 0.9;
+            transition: transform 0.25s ease;
+            z-index: 2;
+        }
+
+        .img-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .img-box:hover .img-title,
+        .img-box:hover .gradient {
+            transform: translateX(6px);
+        }
+
+        /* ===== BOTÃO ===== */
+        .btn {
+            margin: 35px auto 20px auto;
+            display: block;
+            background-color: #a25d3c;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.07);
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ===== TEXTO INFORMATIVO ===== */
+        .info-box {
+            margin: 0 auto;
+            margin-top: 15px;
+            padding: 18px;
+            max-width: 800px;
+            background-color: #25161c;
+            border-left: 4px solid #a25d3c;
+            border-radius: 8px;
+            color: #f1d5b9;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+
+        /* ===== RODAPÉ ===== */
+        footer {
+            background-color: #ebb170;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .linha1 {
+            font-size: 0.95rem;
+            font-weight: bold;
+            font-family: "Trebuchet MS", sans-serif;
+        }
+
+        .linha2 {
+            font-size: 0.85rem;
+            font-style: italic;
+            font-family: Georgia, serif;
+        }
+
+        .linha3 {
+            font-size: 0.75rem;
+            font-family: "Courier New", monospace;
+        }
+
+        /* ===== EXPANDIR IMAGEM ===== */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            padding: 20px;
+        }
+
+        #overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: 12px;
+            background-color: #395542;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+        }
+
+        #overlay.mostrar img {
+            transform: scale(1);
+        }
+
+        @media (max-width: 700px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .sgeek {
+                padding: 10px;
+                max-width: 200px;
+                align-self: center;
+            }
+
+            .img-box {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a class="sgeek" href="https://wa.me/551635110871?text=Ol%C3%A1,%20gostaria%20de%20agendar%20uma%20aula%20demo."
+            target="_blank">
+
+            <img src="supergeeks.png" alt="logo-supergeeks">
+
+            <div class="geektext">
+                <p class="b">Matrículas</p>
+                <p class="r">Abertas</p>
+            </div>
+        </a>
+        <h1>UnderDesk</h1>
+        <div class="gamelogo">
+            <img src="logo.png" alt="logo do jogo">
+        </div>
+    </header>
+
+    <main>
+
+        <div class="grid">
+
+            <div class="img-box"
+                onclick="expandir('char.png')">
+                <img src="char.png" alt="">
+                <div class="gradient"></div>
+                <span class="img-title">Personagem</span>
+            </div>
+
+            <div class="img-box" onclick="expandir('enemy.png')">
+                <img src="enemy.png" alt="">
+                <div class="gradient"></div>
+                <span class="img-title">Inimigo</span>
+            </div>
+
+            <div class="img-box" onclick="expandir('background.png')">
+                <img src="background.png" alt="">
+                <div class="gradient"></div>
+                <span class="img-title">background</span>
+            </div>
+
+            <div class="img-box" onclick="expandir('tilemap01.png')">
+                <img src="tilemap01.png" alt="">
+                <div class="gradient"></div>
+                <span class="img-title">Tilemap</span>
+            </div>
+
+        </div>
+
+        <button class="btn">Jogar agora</button>
+
+        <!-- 🔥 BLOCO DE TEXTO ATUALIZADO -->
+        <div class="info-box">
+            <p>Bem vindo ao site oficial do UnderDesk!!</p>
+
+            <p>
+                Este jogo foi inteiramente feito por IA (Inteligência Artificial) na SuperGeeks, no projeto Curso Natal
+                IA.
+                Todas as artes do jogo foram feitas na
+                <a href="https://sora.chatgpt.com/explore" target="_blank"
+                    style="color: #ebb170; text-decoration: underline;">
+                    Sora.IA
+                </a>
+                e os comandos foram feitos no
+                <a href="https://chatgpt.com/pt-BR/overview/" target="_blank"
+                    style="color: #ebb170; text-decoration: underline;">
+                    ChatGPT
+                </a>.
+            </p>
+        </div>
+
+    </main>
+
+    <div id="overlay" onclick="fecharImagem()">
+        <img id="imgExpandida" src="">
+    </div>
+
+    <footer>
+        <p class="linha1">Projeto desenvolvido por Meu Nome aqui</p>
+        <p class="linha2">Produzido no Curso Natal IA - SuperGeeks Sertãozinho</p>
+        <p class="linha3">Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        const overlay = document.getElementById("overlay");
+        const imgExpandida = document.getElementById("imgExpandida");
+
+        function expandir(imagem) {
+            imgExpandida.src = imagem;
+            overlay.style.display = "flex";
+
+            setTimeout(() => {
+                overlay.classList.add("mostrar");
+            }, 10);
+        }
+
+        function fecharImagem() {
+            overlay.classList.remove("mostrar");
+
+            setTimeout(() => {
+                overlay.style.display = "none";
+                imgExpandida.src = "";
+            }, 200);
+        }
+    </script>
+
+</body>
+
+</html>

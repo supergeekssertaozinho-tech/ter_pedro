@@ -295,8 +295,7 @@
 
         <div class="grid">
 
-            <div class="img-box"
-                onclick="expandir('char.png')">
+            <div class="img-box" onclick="expandir('char.png')">
                 <img src="char.png" alt="">
                 <div class="gradient"></div>
                 <span class="img-title">Personagem</span>
@@ -377,6 +376,12 @@
                 imgExpandida.src = "";
             }, 200);
         }
+
+
+        //Inserir link
+        document.querySelector("button").addEventListener("click", () => {
+            window.open("https://google.com.br", "_blank");
+        });
     </script>
 
 </body>
